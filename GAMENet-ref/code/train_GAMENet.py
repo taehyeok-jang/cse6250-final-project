@@ -97,7 +97,8 @@ def main():
 
     ehr_adj_path = '../data/ehr_adj_final.pkl'
     ddi_adj_path = '../data/ddi_A_final.pkl'
-    device = torch.device('cuda:0')
+    # device = torch.device('cuda:0')
+    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
     ehr_adj = dill.load(open(ehr_adj_path, 'rb'))
     ddi_adj = dill.load(open(ddi_adj_path, 'rb'))
@@ -111,7 +112,7 @@ def main():
     data_test = data[split_point:split_point + eval_len]
     data_eval = data[split_point+eval_len:]
 
-    EPOCH = 40
+    EPOCH = 5
     LR = 0.0002
     TEST = args.eval
     Neg_Loss = args.ddi
